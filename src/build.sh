@@ -1,7 +1,7 @@
 pushd ./ > /dev/null
 cd ../build
 
-gcc -o imana ../src/main.cpp
+g++ -g -o imana ../src/main.cpp ../src/numerical_formula/fraction.cpp
 
 echo ""
 echo ""
