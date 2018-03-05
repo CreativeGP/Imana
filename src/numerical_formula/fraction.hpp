@@ -26,6 +26,15 @@ public:
     Fraction();
     Fraction(int numerator, int denominator);
 
+    Fraction& operator--();
+    Fraction& operator++();
+    Fraction operator+(Fraction&);
+    Fraction operator-(Fraction&);
+    // Fraction operator+(Fraction&);
+    // Fraction operator-(Fraction&);
+    // Fraction operator*(Fraction&);
+    // Fraction operator/(Fraction&);
+
     std::string to_string();
 };
 
