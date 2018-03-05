@@ -105,3 +105,26 @@ Fraction::operator -(Fraction &rhs)
 
     return result;
 }
+
+
+Fraction
+Fraction::operator *(Fraction &rhs)
+{
+    Fraction result;
+
+    result._numerator = _numerator * rhs._numerator;
+    result._denominator = _denominator * rhs._denominator;
+
+    return result;
+}
+
+Fraction
+Fraction::operator /(Fraction &rhs)
+{
+    Fraction result;
+
+    result._numerator = _numerator * rhs._denominator;
+    result._denominator = _denominator * rhs._numerator;
+
+    return result;
+}
