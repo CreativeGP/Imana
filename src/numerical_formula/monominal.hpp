@@ -4,42 +4,37 @@
    ╩┴ ┴┴ ┴┘└┘┴ ┴
    2018/03/03
 
-   $File: fraction.hpp $
-   $Date: 2018/03/04 $
+   $File: monominal.hpp $
+   $Date: 2018/03/05 $
    $Revision: $
    $Creator: Creative GP $
    $Notice: (C) Copyright 2018 by Creative GP, Inc. All Rights Reserved. $
    ======================================================================== */
 
-#ifndef __FRACTION_HPP__
-#define __FRACTION_HPP__
+#ifndef __MONOMINAL_HPP__
+#define __MONOMINAL_HPP__
 
 #include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 
-typedef long double decimal_t;
-
-class Fraction
+class Monominal
 {
 public:
-    Fraction();
-    Fraction(int numerator, int denominator);
+    Monominal();
+    Monominal(string str);
 
-    Fraction& operator--();
-    Fraction& operator++();
-    Fraction operator-(Fraction&);
-    Fraction operator+(Fraction&);
-    Fraction operator*(Fraction&);
-    Fraction operator/(Fraction&);
-
+    void simplify();
     string to_string();
-    decimal_t value();
-
 private:
-    int _numerator,
-        _denominator;
+    void parse();
 
+    string _str;
+    vector<string> _variables;
+    vector<long long> _scalars;
 };
 
 #endif

@@ -15,12 +15,12 @@
 #include <string>
 
 #include "numerical_formula/fraction.hpp"
+#include "numerical_formula/monominal.hpp"
 
 using namespace std;
 
 int main ()
 {
-    Fraction *f1 = new Fraction(1, 2);
-    Fraction *f2 = new Fraction(1, 3);
-    cout << f2->value() << endl;
+    Monominal *m = new Monominal("3 * 2 * a * b");
+    cout << m->to_string() << endl;
 }
