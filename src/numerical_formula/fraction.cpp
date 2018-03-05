@@ -52,6 +52,12 @@ Fraction::to_string()
     return result;
 }
 
+decimal_t
+Fraction::value()
+{
+    return (decimal_t)_numerator / (decimal_t)_denominator;
+}
+
 Fraction &
 Fraction::operator ++()
 {

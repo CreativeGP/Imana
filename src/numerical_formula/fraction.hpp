@@ -18,6 +18,8 @@
 
 using namespace std;
 
+typedef long double decimal_t;
+
 class Fraction
 {
 private:
@@ -36,6 +38,7 @@ public:
     Fraction operator/(Fraction&);
 
     string to_string();
+    decimal_t value();
 };
 
 #endif
