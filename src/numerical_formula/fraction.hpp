@@ -16,6 +16,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Fraction
 {
 private:
@@ -33,7 +35,7 @@ public:
     Fraction operator*(Fraction&);
     Fraction operator/(Fraction&);
 
-    std::string to_string();
+    string to_string();
 };
 
 #endif
