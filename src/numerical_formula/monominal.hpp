@@ -18,8 +18,18 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
+
+struct Monominal_Without_Fraction
+{
+    vector<string> variables;
+    vector<long long> scalars;
+
+    void add_token(string token);
+    void simplify_scalars();
+};
 
 class Monominal
 {
@@ -29,12 +39,13 @@ public:
 
     void simplify();
     string to_string();
+
 private:
     void parse();
 
     string _str;
-    vector<string> _variables;
-    vector<long long> _scalars;
+    Monominal_Without_Fraction _up;
+    Monominal_Without_Fraction _down;
 };
 
 #endif

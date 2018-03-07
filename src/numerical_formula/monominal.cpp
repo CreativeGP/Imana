@@ -55,6 +55,29 @@ bool is_number(const std::string& s)
     return !s.empty() && it == s.end();
 }
 
+
+void Monominal_Without_Fraction::
+add_token(string token)
+{
+    if (is_number(token)) {
+        scalars.push_back(atoi(token.c_str()));
+    } else {
+        variables.push_back(token);
+    }
+}
+
+
+void Monominal_Without_Fraction::
+simplify_scalars()
+{
+    long long n = 1;
+    for (int i : scalars) {
+        n *= i;
+    }
+    scalars.clear();
+    scalars.push_back(n);
+}
+
 Monominal::Monominal()
 {
 }
@@ -65,58 +88,72 @@ Monominal::Monominal(string str)
     parse();
 }
 
-void
-Monominal::parse()
+void Monominal::
+parse()
 {
     /*
       単項式を表す文字列を最大まで分解します
+      全ての単項式は分数で表せると思うから全部分数として定義する
       3 * a * 4 -> [3(scalar), 4(scalar), a(variable)]
       3 / 2 * a -> [(3(scalar)/2(scalar))(fraction), a(variable)]
       3 / (2 * a) -> [(3(scalar) / [2(scalar), a(variable)])(fraction)]
      */
+    string strt = _str;
     string::size_type pos = 0;
-    while ((pos = _str.find(" ", pos)) != string::npos) {
-        _str.replace(pos, 1, "");
+    while ((pos = strt.find(" ", pos)) != string::npos) {
+        strt.replace(pos, 1, "");
     }
 
-    vector<string> par = split(_str, "*");
-    for (string e : par) {
-        if (is_number(e)) {
-            _scalars.push_back(atoi(e.c_str()));
+    reverse(strt.begin(), strt.end());
+
+    vector<string> up;
+    vector<string> down;
+    string token;
+    for (char c : strt) {
+        if (c == '*') {
+            _up.add_token(token);
+            token = "";
+        } else if (c == '/') {
+            _down.add_token(token);
+            token = "";
         } else {
-            _variables.push_back(e);
+            token = c + token;
         }
     }
 
+    _up.add_token(token);
 }
 
-void
-Monominal::simplify()
+void Monominal::
+simplify()
 {
     // 現状は数量を全てかけ合わせるだけ
-    long long n = 1;
-    for (int i : _scalars) {
-        n *= i;
-    }
-    _scalars.clear();
-    _scalars.push_back(n);
+    _up.simplify_scalars();
+    _down.simplify_scalars();
 }
 
-string
-Monominal::to_string()
+string Monominal::
+to_string()
 {
     string result;
-    ostringstream ss;
+    stringstream upst, downst;
 
     simplify();
 
-    ss << _scalars[0];
+    if (_up.scalars[0]==1) upst << "";
+    else upst << _up.scalars[0];
+    for (string var : _up.variables) {
+        upst << var;
+    }
+    if (upst.str() == "") upst << "1";
 
-    for (string var : _variables) {
-        ss << var;
+    if (_down.scalars[0]==1) downst << "";
+    else downst << _down.scalars[0];
+    for (string var : _down.variables) {
+        downst << var;
     }
 
-    result = ss.str();
+    result = upst.str() + (downst.str()=="" ? "" : " / "+downst.str());
 
     return result;
 }
