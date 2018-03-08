@@ -15,10 +15,23 @@
 #define __FRACTION_HPP__
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
 typedef long double decimal_t;
+
+struct Monominal_Without_Fraction
+{
+    vector<string> variables;
+    vector<long long> scalars;
+
+    void add_token(string token);
+    void simplify_scalars();
+    void invert();
+private:
+    bool minus = false;
+};
 
 class Fraction
 {

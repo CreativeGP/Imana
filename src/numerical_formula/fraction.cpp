@@ -37,6 +37,46 @@ int lcm(int a, int b)
     return temp ? (a / temp * b) : 0;
 }
 
+
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
+
+void Monominal_Without_Fraction::
+add_token(string token)
+{
+    if (is_number(token)) {
+        scalars.push_back(atoi(token.c_str()));
+    } else {
+        variables.push_back(token);
+    }
+}
+
+
+void Monominal_Without_Fraction::
+simplify_scalars()
+{
+    long long n = 1;
+    for (long long i : scalars) {
+        n *= i;
+    }
+    scalars.clear();
+    scalars.push_back(n);
+}
+
+
+void Monominal_Without_Fraction::
+invert()
+{
+    minus = !minus;
+    scalars.insert(scalars.begin(), minus?-1:1);
+}
+
+
 Fraction::Fraction() {}
 Fraction::Fraction(int numerator, int denominator)
     : _numerator(numerator), _denominator(denominator)
