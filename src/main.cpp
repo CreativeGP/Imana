@@ -16,6 +16,7 @@
 
 #include "numerical_formula/fraction.hpp"
 #include "numerical_formula/monominal.hpp"
+#include "numerical_formula/expression.hpp"
 
 using namespace std;
 
@@ -25,6 +26,6 @@ int main ()
     //    Equation *eq = new Equation("2 * y + 5 = 3 * y - 5");
     // Expression [2 * y + 5] [3 * y - 5]
     // Monominal [5 / 2 * y / 3] [5] [3 * y] [5]
-    Monominal *m = new Monominal("3 * 2 * a * b / 3 * 2 / c");
-    cout << m->to_string() << endl;
+    Expression *ex = new Expression("3*x + 4*y");
+    cout << ex->to_string() << endl;
 }
