@@ -13,71 +13,6 @@
 
 #include "monominal.hpp"
 
-template<class T> std::vector<std::string> split(const std::string& s, const T& separator, bool ignore_empty = 0, bool split_empty = 0) {
-    struct {
-        auto len(const std::string&             s) { return s.length(); }
-        auto len(const std::string::value_type* p) { return p ? std::char_traits<std::string::value_type>::length(p) : 0; }
-        auto len(const std::string::value_type  c) { return c == std::string::value_type() ? 0 : 1; /*return 1;*/ }
-    } util;
-
-    if (s.empty()) { /// empty string ///
-        if (!split_empty || util.len(separator)) return {""};
-        return {};
-    }
-
-    auto v = std::vector<std::string>();
-    auto n = static_cast<std::string::size_type>(util.len(separator));
-    if (n == 0) {    /// empty separator ///
-        if (!split_empty) return {s};
-        for (auto&& c : s) v.emplace_back(1, c);
-        return v;
-    }
-
-    auto p = std::string::size_type(0);
-    while (1) {      /// split with separator ///
-        auto pos = s.find(separator, p);
-        if (pos == std::string::npos) {
-            if (ignore_empty && p - n + 1 == s.size()) break;
-            v.emplace_back(s.begin() + p, s.end());
-            break;
-        }
-        if (!ignore_empty || p != pos)
-            v.emplace_back(s.begin() + p, s.begin() + pos);
-        p = pos + n;
-    }
-    return v;
-}
-
-bool is_number(const std::string& s)
-{
-    std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
-}
-
-
-void Monominal_Without_Fraction::
-add_token(string token)
-{
-    if (is_number(token)) {
-        scalars.push_back(atoi(token.c_str()));
-    } else {
-        variables.push_back(token);
-    }
-}
-
-
-void Monominal_Without_Fraction::
-simplify_scalars()
-{
-    long long n = 1;
-    for (int i : scalars) {
-        n *= i;
-    }
-    scalars.clear();
-    scalars.push_back(n);
-}
-
 Monominal::Monominal()
 {
 }
@@ -103,6 +38,9 @@ parse()
     while ((pos = strt.find(" ", pos)) != string::npos) {
         strt.replace(pos, 1, "");
     }
+
+    if (strt[0] == '-')
+        _up.invert(); // 分母をマイナスにする
 
     reverse(strt.begin(), strt.end());
 

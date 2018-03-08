@@ -4,15 +4,15 @@
    ╩┴ ┴┴ ┴┘└┘┴ ┴
    2018/03/03
 
-   $File: monominal.hpp $
-   $Date: 2018/03/05 $
+   $File: expression.hpp $
+   $Date: 2018/03/08 $
    $Revision: $
    $Creator: Creative GP $
    $Notice: (C) Copyright 2018 by Creative GP, Inc. All Rights Reserved. $
    ======================================================================== */
 
-#ifndef __MONOMINAL_HPP__
-#define __MONOMINAL_HPP__
+#ifndef __EXPRESSION_HPP__
+#define __EXPRESSION_HPP__
 
 #include <string>
 #include <vector>
@@ -20,15 +20,15 @@
 #include <sstream>
 #include <iostream>
 
-#include "fraction.hpp"
+#include "monominal.hpp"
 
 using namespace std;
 
-class Monominal
+class Expression
 {
 public:
-    Monominal();
-    Monominal(string str);
+    Expression();
+    Expression(string str);
 
     void simplify();
     string to_string();
@@ -37,8 +37,7 @@ private:
     void parse();
 
     string _str;
-    Monominal_Without_Fraction _up;
-    Monominal_Without_Fraction _down;
+    vector<Monominal *> _monominals;
 };
 
 #endif
