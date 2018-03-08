@@ -40,9 +40,11 @@ int lcm(int a, int b)
 
 bool is_number(const std::string& s)
 {
-    std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
+    string test = s;
+    test.erase(remove(test.begin(), test.end(), '-'), test.end());
+    std::string::const_iterator it = test.begin();
+    while (it != test.end() && std::isdigit(*it)) ++it;
+    return !test.empty() && it == test.end();
 }
 
 
@@ -50,7 +52,10 @@ void Monominal_Without_Fraction::
 add_token(string token)
 {
     if (is_number(token)) {
-        scalars.push_back(atoi(token.c_str()));
+        long long v;
+        if (token.find('-') == string::npos) v = atoi(token.c_str());
+        else v = - atoi(token.c_str());
+        scalars.push_back(v);
     } else {
         variables.push_back(token);
     }
