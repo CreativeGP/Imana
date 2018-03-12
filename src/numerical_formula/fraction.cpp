@@ -8,7 +8,7 @@
    $Date: 2018/03/04 $
    $Revision: $
    $Creator: Creative GP $
-   $Notice: (C) Copyright 2018 by Creative GP, Inc. All Rights Reserved. $
+   $Notice: (C) Copyright 2018 by Creative GP. All Rights Reserved. $
    ======================================================================== */
 
 #include <iostream>
@@ -35,50 +35,6 @@ int lcm(int a, int b)
     int temp = gcd(a, b);
 
     return temp ? (a / temp * b) : 0;
-}
-
-
-bool is_number(const std::string& s)
-{
-    string test = s;
-    test.erase(remove(test.begin(), test.end(), '-'), test.end());
-    std::string::const_iterator it = test.begin();
-    while (it != test.end() && std::isdigit(*it)) ++it;
-    return !test.empty() && it == test.end();
-}
-
-
-void Monominal_Without_Fraction::
-add_token(string token)
-{
-    if (is_number(token)) {
-        long long v;
-        if (token.find('-') == string::npos) v = atoi(token.c_str());
-        else v = - atoi(token.c_str());
-        scalars.push_back(v);
-    } else {
-        variables.push_back(token);
-    }
-}
-
-
-void Monominal_Without_Fraction::
-simplify_scalars()
-{
-    long long n = 1;
-    for (long long i : scalars) {
-        n *= i;
-    }
-    scalars.clear();
-    scalars.push_back(n);
-}
-
-
-void Monominal_Without_Fraction::
-invert()
-{
-    minus = !minus;
-    scalars.insert(scalars.begin(), minus?-1:1);
 }
 
 

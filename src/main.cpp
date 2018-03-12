@@ -26,6 +26,7 @@ int main ()
     //    Equation *eq = new Equation("2 * y + 5 = 3 * y - 5");
     // Expression [2 * y + 5] [3 * y - 5]
     // Monominal [5 / 2 * y / 3] [5] [3 * y] [5]
-    Monominal *m = new Monominal("-4*x*3*y");
-    cout << m->to_string() << endl;
+//    Monominal *m = new Monominal("3 / ((4*x*y/3)+(y/(2+x)))");
+    Expression *ex = new Expression("(4*x*y/3)+(y/(2+x))");
+//    cout << m->to_string() << endl;
 }

@@ -16,13 +16,23 @@
 
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <sstream>
-#include <iostream>
 
-#include "fraction.hpp"
+class Expression;
 
 using namespace std;
+
+struct Monominal_Without_Fraction
+{
+    vector<string> variables;
+    vector<long long> scalars;
+
+    void add_token(string token);
+    void simplify_scalars();
+    void invert();
+private:
+    bool minus = false;
+};
+
 
 class Monominal
 {
@@ -35,10 +45,11 @@ public:
 
 private:
     void parse();
+    void reduce();
 
     string _str;
     Monominal_Without_Fraction _up;
-    Monominal_Without_Fraction _down;
+    Expression *_down;
 };
 
 #endif
