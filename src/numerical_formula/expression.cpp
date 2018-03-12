@@ -71,7 +71,7 @@ parse()
             token = c + token;
         }
     }
-    _monominals.push_back(new Monominal(token));
+    _monominals.push_back(new Monominal(pr(token)));
 }
 
 string Expression::
